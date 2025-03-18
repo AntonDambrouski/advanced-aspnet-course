@@ -47,11 +47,11 @@ void Input(int[] nums)
 
 void SelectionSort(int[] nums)
 {
-  for (var i = nums.Length - 1; i > 0; i--)
+  for (var i = nums.Length - 1; i >= 0; i--)
   {
     var maxIndex = i;
     int j;
-    for (j = i - 1; j > 0; --j)
+    for (j = i - 1; j >= 0; --j)
     {
       if (nums[j] > nums[maxIndex])
       {
