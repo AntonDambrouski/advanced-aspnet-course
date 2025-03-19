@@ -47,7 +47,7 @@ void Input(int[] nums)
 
 void SelectionSort(int[] nums)
 {
-  for (var i = nums.Length - 1; i > 0; i--)
+  for (var i = nums.Length - 1; i >= 0; i--)
   {
     var maxIndex = i;
     int j;
