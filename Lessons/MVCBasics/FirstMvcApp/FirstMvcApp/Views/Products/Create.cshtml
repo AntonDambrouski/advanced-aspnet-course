@@ -1,0 +1,16 @@
+﻿@{
+}
+
+@model Product
+
+<h2>Create Product</h2>
+
+<form method="post">
+    <label for="Name">Name:</label>
+    <input type="text" name="Name" id="Name" required asp-for="Name" />
+
+    <label for="Price">Price:</label>
+    <input type="number" name="Price" id="Price" required asp-for="Price"/>
+
+    <button class="btn btn-primary" type="submit">Create</button>
+</form>
