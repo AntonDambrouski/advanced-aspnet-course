@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,46 +11,22 @@ namespace SolidPrinciples.LiskovSubstituteSolution
     {
         public void Execute()
         {
-            Account account = new MicroAccount(50);
+            Account account = new MicroAccount(50, 1M);
             account.GetInterest();
+
+            Account acc = new DepositAccount(100, 10M);
+            acc.GetInterest();
         }
     }
 
     public abstract class Account
     {
         protected int _capital;
-        protected decimal rate = 0M;
+        protected decimal _rate;
 
-        public Account(int capital)
+        public virtual void GetInterest()
         {
-            if (capital < 0)
-            {
-                throw new ArgumentOutOfRangeException("Invalid capital value");
-            }
-            else
-            {
-                _capital = capital;
-                
-            }
-
-        }
-
-        public virtual int Capital
-        {
-            get { return _capital; }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException("invalid capital value");
-                }
-                _capital = value;
-            }
-        }
-
-        public void GetInterest()
-        {
-            Console.WriteLine($"Amount on the account: {Capital} + {Capital * rate / 100}");
+            Console.WriteLine($"Amount on the account:  {_capital} + {_capital * _rate / 100}");
         }
 
 
@@ -60,10 +37,12 @@ namespace SolidPrinciples.LiskovSubstituteSolution
     public class DepositAccount : Account
     {
 
-
-        public DepositAccount(int capital) : base(capital)
+        private decimal _bonus; 
+        public DepositAccount(int capital, decimal rate) : base()
         {
-            rate = 10M;
+            _rate = rate;
+            _bonus = capital * rate * 0.5M / 100M;
+
             if (capital < 100)
             {
                 try
@@ -79,30 +58,13 @@ namespace SolidPrinciples.LiskovSubstituteSolution
             {
                 _capital = capital;
             }
+
+           
         }
 
-
-
-
-        public override int Capital
+        public override void GetInterest()
         {
-            get { return _capital; }
-            set
-            {
-                if (value < 100)
-                {
-                    try
-                    {
-                        throw new ArgumentException("Capital is too small");
-                    }catch (Exception ex)
-                    {
-                        Console.WriteLine("Exception: " + ex.Message);
-                    }
-                    
-                }
-
-                _capital = value;
-            }
+            Console.WriteLine($"Amount on the account:  {_capital} + {_capital * _rate / 100} + {_bonus}");
         }
 
     }
@@ -111,10 +73,10 @@ namespace SolidPrinciples.LiskovSubstituteSolution
     public class MicroAccount : Account
     {
 
-        public MicroAccount(int capital) : base(capital)
+        public MicroAccount(int capital, decimal rate) : base()
         {
             _capital = capital;
-            rate = 5M;
+            _rate = rate;
         }
 
     }
