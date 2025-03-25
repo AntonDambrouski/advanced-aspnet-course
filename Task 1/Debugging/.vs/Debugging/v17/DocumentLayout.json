@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\\u041A\u0443\u0440\u0441 IT-Academy\\Project\\advanced-aspnet-course\\Task 1\\Debugging\\",
+  "WorkspaceRootPath": "D:\\Development\\Coding\\IT-Academy\\advanced-aspnet-course\\advanced-aspnet-course\\Task 1\\Debugging\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A10951A2-D501-75C9-E495-0310FE12269E}|Debugging.csproj|d:\\\u043A\u0443\u0440\u0441 it-academy\\project\\advanced-aspnet-course\\task 1\\debugging\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A10951A2-D501-75C9-E495-0310FE12269E}|Debugging.csproj|d:\\development\\coding\\it-academy\\advanced-aspnet-course\\advanced-aspnet-course\\task 1\\debugging\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A10951A2-D501-75C9-E495-0310FE12269E}|Debugging.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -28,11 +28,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\\u041A\u0443\u0440\u0441 IT-Academy\\Project\\advanced-aspnet-course\\Task 1\\Debugging\\Program.cs",
+              "DocumentMoniker": "D:\\Development\\Coding\\IT-Academy\\advanced-aspnet-course\\advanced-aspnet-course\\Task 1\\Debugging\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\\u041A\u0443\u0440\u0441 IT-Academy\\Project\\advanced-aspnet-course\\Task 1\\Debugging\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAmwEkAAAABAAAAAAAAAA==",
+              "ToolTip": "D:\\Development\\Coding\\IT-Academy\\advanced-aspnet-course\\advanced-aspnet-course\\Task 1\\Debugging\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAACIAAAAAAAAAAAAIwDQAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T15:28:04.369Z",
               "EditorCaption": ""
