@@ -20,8 +20,21 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapAreaControllerRoute("areaStuff",
+    areaName: "Stuff",
+    pattern: "Stuff/{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(name: "products",
+//    pattern: "goods/{*any}",
+//    defaults: new { controller = "Products", action = "Any" });
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllers();
+
 app.Run();
+
+Convert.ToInt32("100", fromBase: 2);
+
+new string[] {"a", "b"}.Aggregate(string.Empty, (acc, x) => acc + x);

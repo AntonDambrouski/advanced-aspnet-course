@@ -2,7 +2,7 @@
 
 namespace FirstMvcApp.Services;
 
-public class ProductService
+public class ProductService : IProductService
 {
     private static readonly List<Product> _products = new List<Product>();
 
