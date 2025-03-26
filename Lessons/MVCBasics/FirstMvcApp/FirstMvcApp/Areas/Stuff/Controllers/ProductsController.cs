@@ -3,8 +3,9 @@ using FirstMvcApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FirstMvcApp.Controllers
+namespace FirstMvcApp.Areas.Stuff.Controllers
 {
+    [Area("Stuff")]
     public class ProductsController : Controller
     {
         private readonly ProductService _productService;
@@ -15,6 +16,8 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: ProductsController
+        //[HttpGet]
+        //[HttpGet("Index")]
         public ActionResult Index()
         {
             var products = _productService.GetAllProducts();
@@ -22,6 +25,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: ProductsController/Details/5
+        //[HttpGet("Details/{id:int}")]
         public ActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
@@ -33,14 +37,21 @@ namespace FirstMvcApp.Controllers
             return View(product);
         }
 
+        //public ActionResult Any(string any)
+        //{
+        //    return Content("You hit products any action!");
+        //}
+
+
         // GET: ProductsController/Create
+        [HttpGet("Create")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: ProductsController/Create
-        [HttpPost]
+        [HttpPost("Create")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Product product)
         {
@@ -56,6 +67,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: ProductsController/Edit/5
+        [HttpGet("Edit/{id:int}")]
         public ActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
@@ -68,7 +80,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // POST: ProductsController/Edit/5
-        [HttpPost]
+        [HttpPost("Edit/{id:int}")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Product product)
         {
@@ -84,6 +96,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // GET: ProductsController/Delete/5
+        [HttpGet("Delete/{id:int}")]
         public ActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
@@ -93,7 +106,7 @@ namespace FirstMvcApp.Controllers
         }
 
         // POST: ProductsController/Delete/5
-        [HttpPost]
+        [HttpPost("Delete/{id:int}")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

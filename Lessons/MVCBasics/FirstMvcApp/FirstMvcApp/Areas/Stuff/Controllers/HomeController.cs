@@ -2,8 +2,9 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using FirstMvcApp.Models;
 
-namespace FirstMvcApp.Controllers;
+namespace FirstMvcApp.Areas.Stuff.Controllers;
 
+[Area("Stuff")]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

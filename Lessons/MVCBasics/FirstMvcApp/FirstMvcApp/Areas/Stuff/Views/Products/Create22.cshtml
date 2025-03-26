@@ -10,7 +10,11 @@
     <input type="text" name="Name" id="Name" required asp-for="Name" />
 
     <label for="Price">Price:</label>
-    <input type="number" name="Price" id="Price" required asp-for="Price"/>
+    <input type="number" name="Price" id="Price" required asp-for="Price" />
 
     <button class="btn btn-primary" type="submit">Create</button>
 </form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+}
