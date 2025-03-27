@@ -1,7 +1,18 @@
+using MovieManager;
+using MovieManager.Services;
+using MovieManager.Storages;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//builder.Services.AddKeyedScoped<IMovieManagerService, MoviesManagerServiceMock>("mock");
+//builder.Services.AddKeyedScoped<IMovieManagerService, MovieManagerService>("real");
+//builder.Services.AddScoped<IReviewManagerService, ReviewManagerService>();
+//builder.Services.AddScoped<IReviewsStorage, ReviewsStorage>();
+
+//builder.Services.RegisterServices2();
+ServiceRegistrator.RegisterServices(builder.Services);
 
 var app = builder.Build();
 
@@ -20,17 +31,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapAreaControllerRoute("areaStuff",
-    areaName: "Stuff",
-    pattern: "Stuff/{controller=Home}/{action=Index}/{id?}");
-//app.MapControllerRoute(name: "products",
-//    pattern: "goods/{*any}",
-//    defaults: new { controller = "Products", action = "Any" });
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllers();
 
 app.Run();
