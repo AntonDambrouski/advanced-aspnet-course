@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Vacancy
+@{
+    ViewData["Title"] = "Вакансия " + Model.Name;
+}
+<div class="container justify-content-center text-center">
+    <a asp-controller="Organisation" asp-action="DetailsOrganisation" 
+        asp-route-organisationId=@Model.IdOrganisation class="btn btn-warning">Назад</a>
+    <a asp-action="EditVacancy" asp-route-vacancyId=@Model.VacancyId class="btn btn-info">Редактировать</a>
+    <h4>@Model.Name</h4>
+    <div class="row">
+        <div class="col-sm-3">
+            <span>@Model.Location</span>
+        </div>
+        <div class="col-sm-3">
+            <span>@Model.Salary BYN</span>
+        </div>
+        <div class="col-sm-3">
+            <span>@ViewBag.NameOrganisation</span>
+        </div>
+        <div class="col-sm-3">
+            <span>График @Model.ScheduleType</span>
+        </div>
+    </div>
+    <br /><br />
+    <div class="row">
+        <div class="col-sm-12  text--start">
+            <p>@Model.Description</p>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <h6>Требования</h6>
+            <br />
+        </div>
+        <div>
+            <h6>Обязанности</h6>
+            <br />
+        </div>
+        <div>
+            <h6>Условия работы</h6>
+            <br />
+        </div>
+    </div>
+
+</div>

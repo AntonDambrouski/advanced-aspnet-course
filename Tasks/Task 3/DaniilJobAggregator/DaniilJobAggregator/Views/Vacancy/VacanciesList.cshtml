@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Vacancy>
+@{
+}
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <h5 class="card-header">@item.Name</h5>
+            <div class="card-body">
+                <h6 class="card-title">@item.Location</h6>
+                <p class="card-text">@item.Description</p>
+                <a href="#" class="btn btn-primary">Откликнуться</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,67 @@
+﻿@using DaniilJobAggregator.Domain.Enum
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Vacancy
+@{
+    ViewData["Title"] = "Создание вакансии";
+}
+<div class="container">
+    <h1>Create</h1>
+    <a asp-controller="Organisation" asp-action="DetailsOrganisation"
+       asp-route-organisationId=@ViewBag.OrganisationId class="btn btn-warning">Назад</a>
+    <form method="post" asp-action="CreateVacancy">
+        <div class="row justify-content-md-center">
+            <div class="col-md-3">
+                <div class="">
+                    <label asp-for="VacancyId" class="control-label"></label>
+                    <input asp-for="VacancyId" class="form-control" type="number" min="1" />
+                    <span asp-validation-for="VacancyId" class="text-danger"></span>
+                </div>
+                <div class="">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" type="text" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="">
+                    <label asp-for="Location" class="control-label"></label>
+                    <input asp-for="Location" class="form-control" type="text" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+                <div class="">
+                    <label asp-for="Salary" class="control-label"></label>
+                    <input asp-for="Salary" class="form-control" type="number" min="1"/>
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+                <div class="">
+                    <label asp-for="IdOrganisation" class="control-label"></label>
+                    <input asp-for="IdOrganisation" class="form-control" type="text" readonly value="@ViewBag.OrganisationId"/>
+                    <span asp-validation-for="IdOrganisation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ScheduleType" class="control-label"></label>
+                    <select asp-for="ScheduleType" class="form-select mb-3" asp-items="Html.GetEnumSelectList<ScheduleType>()"></select>
+                    <span asp-validation-for="ScheduleType" class="text-danger"></span>
+                </div>
+                <div>
+                    <h5>Требования</h5>
+                    <br />
+                </div>
+                <div>
+                    <h5>Обязанности</h5>
+                    <br />
+                </div>
+                <div>
+                    <h5>Условия работы</h5>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success" type="submit">Сохранить</button>
+    </form>
+</div>
