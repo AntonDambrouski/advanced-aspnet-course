@@ -8,6 +8,10 @@
             singleResposibilityProblem.Execute();
             SingleResponsibilitySolution singleResposibilitySolution = new SingleResponsibilitySolution();
             singleResposibilitySolution.Execute();
+            OpenClosedProblem openClosedProblem = new OpenClosedProblem();
+            openClosedProblem.Execute();
+            OpenClosedSolution openClosedSolution = new OpenClosedSolution();
+            openClosedSolution.Execute();
         }
     }
 }
