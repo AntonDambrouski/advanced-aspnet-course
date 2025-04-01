@@ -1,5 +1,6 @@
 **/obj
 **/bin
+<<<<<<< HEAD
 Task 1/Debugging/.vs/Debugging/v17/.suo
 Task 1/Debugging/.vs/Debugging/DesignTimeBuild/.dtbcache.v2
 Task 1/Debugging/.vs/Debugging/DesignTimeBuild/.dtbcache.v2
@@ -20,3 +21,6 @@ Task 1/Debugging/.vs/Debugging/v17/DocumentLayout.json
 Task 1/Debugging/.vs/ProjectEvaluation/debugging.metadata.v9.bin
 Task 1/Debugging/.vs/ProjectEvaluation/debugging.projects.v9.bin
 Task 1/Debugging/.vs/ProjectEvaluation/debugging.strings.v9.bin
+=======
+**/.vs
+>>>>>>> main

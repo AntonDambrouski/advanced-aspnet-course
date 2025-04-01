@@ -1,0 +1,21 @@
+﻿@model List<Review>
+@if (Model?.Count > 0)
+{
+    @foreach (var review in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@review.Reviewer</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    @(new string('★', review.Rating) + new string('☆', 5 - review.Rating))
+                </h6>
+                <p class="card-text">@review.Message</p>
+                <p class="card-text">Movie Id: @review.MovieId</p>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>There is not any review for this movie.</p>
+}
