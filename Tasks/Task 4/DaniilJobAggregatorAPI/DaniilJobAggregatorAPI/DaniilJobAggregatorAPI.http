@@ -1,0 +1,6 @@
+@DaniilJobAggregatorAPI_HostAddress = http://localhost:5193
+
+GET {{DaniilJobAggregatorAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
