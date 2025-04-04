@@ -10,10 +10,7 @@ namespace NicksSchoolDiary.Services
             _studentClasses.Add(new StudentClass() { Id = 2, Name = "1B" });
             _studentClasses.Add(new StudentClass() { Id = 3, Name = "1C" });
             _studentClasses.Add(new StudentClass() { Id = 4, Name = "2A" });
-
         }
-
-
 
         public void AddClass(StudentClass myClass)
         {

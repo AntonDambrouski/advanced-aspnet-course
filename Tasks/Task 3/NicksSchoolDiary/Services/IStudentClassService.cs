@@ -4,12 +4,10 @@ namespace NicksSchoolDiary.Services
 {
     public interface IStudentClassService
     {
-        public void AddClass(StudentClass myClass);
-        public void DeleteClass(int id);
-        
-        public void UpdateClass(StudentClass myClass);
-        public StudentClass? GetClass(int id);
-        
-        public List<StudentClass> GetStudentClasses();  
+        void AddClass(StudentClass myClass);
+        void DeleteClass(int id);        
+        void UpdateClass(StudentClass myClass);
+        StudentClass? GetClass(int id);        
+        List<StudentClass> GetStudentClasses();  
     }
 }

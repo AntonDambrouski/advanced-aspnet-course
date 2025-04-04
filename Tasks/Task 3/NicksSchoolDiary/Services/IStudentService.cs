@@ -4,13 +4,11 @@ namespace NicksSchoolDiary.Services
 {
     public interface IStudentService
     {
-        public void AddStudent(Student student);
-        public void DeleteStudent(int studentId);
-
-        public void UpdateStudent(Student student);
-        public Student? GetStudentById(int studentId);
-        public List<Student> GetAllStudents();
-
-        public List<Student> GetStudentsByClassId(int studentClassId);
+        void AddStudent(Student student);
+        void DeleteStudent(int studentId);
+        void UpdateStudent(Student student);
+        Student? GetStudentById(int studentId);
+        List<Student> GetAllStudents();
+        List<Student> GetStudentsByClassId(int studentClassId);
     }
 }

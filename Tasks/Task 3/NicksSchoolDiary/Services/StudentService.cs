@@ -12,8 +12,6 @@ namespace NicksSchoolDiary.Services
             _students.Add(new Student() { Id = 2, Name = "Adam Wexler", DateOfBirth = new DateOnly(2019, 1, 20), StudentClassId = 1 });
             _students.Add(new Student() { Id = 3, Name = "Mark Daw", DateOfBirth = new DateOnly(2019, 3, 12), StudentClassId = 2 });
             _students.Add(new Student() { Id = 4, Name = "Selena Williams", DateOfBirth = new DateOnly(2017, 11, 21), StudentClassId = 4 });
-
-
         }
 
         public void AddStudent(Student student)
