@@ -31,17 +31,17 @@ namespace DesignPatterns.AbtractFactorySolution
 
     public interface ITruck
     {
-        public void Deliver();
+        void Deliver();
 
     }
     public interface IShip
     {
-        public void Deliver();
+        void Deliver();
     }
 
     public interface IAirplane
     {
-        public void Deliver();
+        void Deliver();
     }
 
 
@@ -135,7 +135,4 @@ namespace DesignPatterns.AbtractFactorySolution
             return new BelazAirplane();
         }
     }
-
-
-
 }

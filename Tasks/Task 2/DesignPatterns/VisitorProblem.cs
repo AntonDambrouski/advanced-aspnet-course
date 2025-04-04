@@ -70,6 +70,4 @@ namespace DesignPatterns.VisitorProblem
             Console.WriteLine("The Window is opened");
         }
     }
-
-
 }

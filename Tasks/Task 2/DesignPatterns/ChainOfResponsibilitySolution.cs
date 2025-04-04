@@ -20,25 +20,20 @@ namespace DesignPatterns.ChainOfResponsibilitySolution
             List<IOrderService> orderServices = new List<IOrderService>()
             {
                 acceptService, collectService, shipService
-            };
-
-            for (int i = 0; i < orderServices.Count; i++)
-            {
-                acceptService.Process(order);
-            }
+            };          
+                acceptService.Process(order);            
         }
 
         public void Accept(IMainVisitor visitor)
         {
             visitor.Visit(this);
         }
-
     }
 
     public interface IOrderService
     {
-        public void SetNext(IOrderService service);
-        public void Process(Order order);
+        void SetNext(IOrderService service);
+        void Process(Order order);
     }
 
     public class Order
@@ -52,7 +47,6 @@ namespace DesignPatterns.ChainOfResponsibilitySolution
         {
             State = state;
         }
-
     }
 
 
@@ -80,13 +74,13 @@ namespace DesignPatterns.ChainOfResponsibilitySolution
             {
                 order.ChangeState(OrderState.Accepted);
                 Console.WriteLine("Order is Accepted");
-            }else if (_nextService != null)
+            } 
+            if (_nextService != null)
             {
                 _nextService.Process(order);
             }
         }
     }
-
 
     public class CollectService : IOrderService
     {
@@ -104,7 +98,7 @@ namespace DesignPatterns.ChainOfResponsibilitySolution
                 order.ChangeState(OrderState.Collected);
                 Console.WriteLine("Order is Collected");
             }
-            else if (_nextService != null)
+            if (_nextService != null)
             {
                 _nextService.Process(order);
             }
@@ -128,13 +122,10 @@ namespace DesignPatterns.ChainOfResponsibilitySolution
                 order.ChangeState(OrderState.Shipped);
                 Console.WriteLine("Order is Shipped");
             }
-            else if (_nextService != null)
+            if (_nextService != null)
             {
                 _nextService.Process(order);
             }
         }
     }
-
-
-
 }

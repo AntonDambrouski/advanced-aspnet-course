@@ -35,7 +35,7 @@ namespace DesignPatterns.FactoryMethodSolution
 
     interface ITransport
     {
-        public void Deliver();
+        void Deliver();
     }
 
     internal abstract class CreatorFactoryMethod
@@ -89,8 +89,4 @@ namespace DesignPatterns.FactoryMethodSolution
             Console.WriteLine("Airplane deliver");
         }
     }
-
-
-
-
 }

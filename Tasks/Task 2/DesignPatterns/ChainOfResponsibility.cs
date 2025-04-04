@@ -23,20 +23,17 @@ namespace DesignPatterns.ChainOfResponsibility
             {
                 new ShipService(order).Process();
             }
-
         }
-
 
         public void Accept(IMainVisitor visitor)
         {
             visitor.Visit(this);
         }
-
     }
 
     public interface IOrderService
     {
-        public void Process();
+        void Process();
     }
 
     public class Order
@@ -49,10 +46,8 @@ namespace DesignPatterns.ChainOfResponsibility
         public void ChangeState(OrderState state)
         {
             State = state;
-        }
-    
+        }    
     }
-
 
     public enum OrderState
     {
@@ -75,7 +70,6 @@ namespace DesignPatterns.ChainOfResponsibility
             Console.WriteLine("Order is Accepted");
         }
     }
-
 
     public class CollectService
     {
@@ -105,14 +99,4 @@ namespace DesignPatterns.ChainOfResponsibility
             Console.WriteLine("Order is Shipped");
         }
     }
-
-
-    
-
-
-
-
-
-
-
 }

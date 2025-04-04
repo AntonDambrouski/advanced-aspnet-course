@@ -8,7 +8,6 @@ namespace DesignPatterns.AbtractFactoryProblem
 {
     internal class AbstractFactoryProblemDemo : IDemo
     {
-
         public void Execute()
         {
             CreatorFactoryMethod mazTruckCreator = new MazTruckCreator();
@@ -38,17 +37,15 @@ namespace DesignPatterns.AbtractFactoryProblem
 
         }
 
-
         public void Accept(IMainVisitor visitor)
         {
             visitor.Visit(this);
         }
     }
 
-
     interface ITransport
     {
-        public void Deliver();
+        void Deliver();
     }
 
     internal abstract class CreatorFactoryMethod
@@ -78,8 +75,6 @@ namespace DesignPatterns.AbtractFactoryProblem
             return new MazAirplane();
         }
     }
-
-
 
     internal class BelazTruckCreator : CreatorFactoryMethod
     {
@@ -129,9 +124,6 @@ namespace DesignPatterns.AbtractFactoryProblem
         }
     }
 
-
-
-
     internal class BelazTruck : ITransport
     {
         public void Deliver()
@@ -155,5 +147,4 @@ namespace DesignPatterns.AbtractFactoryProblem
             Console.WriteLine("BelazAirplane deliver");
         }
     }
-
 }

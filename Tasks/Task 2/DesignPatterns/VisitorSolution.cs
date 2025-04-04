@@ -22,32 +22,26 @@ namespace DesignPatterns.VisitorSolution
             {
                 patient.Accept(visitor);
             }
-
         }
         public void Accept(IMainVisitor visitor)
         {
             visitor.Visit(this);
         }
-
-
     }
 
 
     public interface IPatients
     {
-        public void Accept(IVisitor visitor);
+        void Accept(IVisitor visitor);
     }
 
     public interface IVisitor
     {
-        public void Visit(Car car);
-        public void Visit(Ship ship);
-
-        public void Visit(Plane plane);
-
-        public void Visit(House house);
-
-        public void Visit(Window window);
+        void Visit(Car car);
+        void Visit(Ship ship);
+        void Visit(Plane plane);
+        void Visit(House house);
+        void Visit(Window window);
     }
 
 
@@ -57,7 +51,6 @@ namespace DesignPatterns.VisitorSolution
         {
             Console.WriteLine("The Car is driving");
         }
-
         public void Accept(IVisitor visitor)
         {
             visitor.Visit(this);
@@ -98,7 +91,6 @@ namespace DesignPatterns.VisitorSolution
         {
             Console.WriteLine("The House is rented");
         }
-
         public void Accept(IVisitor visitor)
         {
             visitor.Visit(this);
@@ -117,9 +109,6 @@ namespace DesignPatterns.VisitorSolution
             visitor.Visit(this);
         }
     }
-
-
-
 
     public class Visitor : IVisitor
     {
@@ -144,9 +133,5 @@ namespace DesignPatterns.VisitorSolution
         {
             window.Open();
         }
-
     }
-
-
-
 }

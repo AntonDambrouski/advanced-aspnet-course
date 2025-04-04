@@ -4,7 +4,6 @@ using DesignPatterns.AbtractFactorySolution;
 using DesignPatterns.FactoryMethodSolution;
 using DesignPatterns.FlyweightProblem;
 
-
 using DesignPatterns.FlyweightSolution;
 using DesignPatterns.ProxyProblem;
 using DesignPatterns.ProxySolution;
@@ -36,18 +35,16 @@ foreach (IDemo demo in demos)
     demo.Accept(mainVisitor);
 }  
 
-
 public interface IDemo
 {
-    public void Execute();
-
-    public void Accept(IMainVisitor visitor);
+    void Execute();
+    void Accept(IMainVisitor visitor);
 }
 
 
 public interface IMainVisitor
 {
-    public void Visit(IDemo demo);
+    void Visit(IDemo demo);
 }
 
 public class MainVisitor: IMainVisitor
@@ -59,6 +56,3 @@ public class MainVisitor: IMainVisitor
         demo.Execute();
     }
 }
-
-
-

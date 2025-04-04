@@ -19,8 +19,6 @@ namespace DesignPatterns.ProxyProblem
             carServiceYoung.GetCar();
             carServiceMiddle.GetCar();
             carServiceAged.GetCar();
-
-
         }
         public void Accept(IMainVisitor visitor)
         {
@@ -31,14 +29,12 @@ namespace DesignPatterns.ProxyProblem
 
     public interface ICarService
     {
-        public void GetCar();
+        void GetCar();
     }
 
     public class CarService : ICarService
     {
         private readonly User _user;
-
-
         public CarService(User user)
         {
             _user = user;
@@ -65,7 +61,4 @@ namespace DesignPatterns.ProxyProblem
             Age = age;
         }
     }
-
-
-
 }

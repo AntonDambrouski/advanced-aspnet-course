@@ -24,21 +24,19 @@ namespace DesignPatterns.ProxySolution
         {
             visitor.Visit(this);
         }
-
     }
 
 
     public interface ICarService
     {
-        public void GetCar();
+        void GetCar();
     }
 
     public class CarService : ICarService
     {
-
         public void GetCar()
         {
-           
+           Console.WriteLine("Car is realy taken");
         }
     }
 
@@ -48,7 +46,6 @@ namespace DesignPatterns.ProxySolution
     {
 
         private CarService? _carService;
-
         private readonly User _user;
 
 
@@ -57,7 +54,6 @@ namespace DesignPatterns.ProxySolution
         {
             _user = user;
         }
-
 
         public void GetCar()
         {
@@ -79,9 +75,6 @@ namespace DesignPatterns.ProxySolution
         }
     }
 
-
-
-
     public class User
     {
         public int Age { get; set; }
@@ -92,8 +85,3 @@ namespace DesignPatterns.ProxySolution
         }
     }
 }
-
-
-
-
-

@@ -10,9 +10,7 @@ namespace DesignPatterns.FlyweightProblem
     internal class FlyweightProblemDemo: IDemo
     {
         public void Execute()
-        {
-         
-  
+        {           
             List<(int, Car)> carsManufacturedByDate = new List<(int, Car)>();
 
             long memoryStart = Process.GetCurrentProcess().WorkingSet64;
@@ -31,9 +29,7 @@ namespace DesignPatterns.FlyweightProblem
         {
             visitor.Visit(this);
         }
-
     }
-
 
     internal class Car: ICar 
     {
@@ -54,9 +50,6 @@ namespace DesignPatterns.FlyweightProblem
 
     public interface ICar
     {
-        public void Display();
+        void Display();
     }
-
-
-
 }
