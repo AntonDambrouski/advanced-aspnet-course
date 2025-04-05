@@ -1,0 +1,92 @@
+﻿@using DaniilJobAggregator.Domain.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model OrganisationVacanciesViewModel
+@{
+    ViewData["Title"] = "Подробно о " + Model.Organisation.Name;
+}
+<div class="container">
+
+    <div class="modal fade" id="modalDeleteVacancy" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="labelModalDeleteVacancy" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModalDeleteVacancy">Удалить вакансию <span id="nameDeleteVacancy"></span> ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearName()"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearName()">Отмена</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteVacancy()">Ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a asp-action="Organisations" class="btn btn-warning">Назад</a>
+    <a class="btn btn-info" href='@Url.Action("EditOrganisation", "Organisation", new { id = Model.Organisation.OrganizationId })'>Редактировать</a>
+
+    <dl class="row">
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(Model => Model.Organisation.OrganizationId)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(Model => Model.Organisation.OrganizationId)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(Model => Model.Organisation.Name)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(Model => Model.Organisation.Name)
+        </dd>
+    </dl>
+    <a asp-controller="Vacancy" asp-action="CreateVacancy"
+       asp-route-organisationId=@Model.Organisation.OrganizationId class="btn btn-primary">Добавить вакансию</a>
+    <br /><br />
+    <br />
+
+    <h3>@Html.DisplayNameFor(Model => Model.Organisation.Vacancies)</h3>
+    <div style="max-width: 500px;">
+        @foreach (var item in Model.Vacancies)
+        {
+            <div class="card">
+                <h5 class="card-header">@item.Name</h5>
+                <div class="card-body">
+                    <p class="card-text">@item.Description</p>
+                    <a asp-controller="Vacancy" asp-action="DetailsVacancy" asp-route-vacancyId=@item.VacancyId class="btn btn-primary">Подробно</a>
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteVacancy"
+                       onclick="modalDelete('@item.VacancyId', '@item.Name', '@item.IdOrganisation')">Удалить</a>
+                    
+                </div>
+            </div>
+            <br />
+        }
+    </div>
+</div>
+
+<script>
+    var idDeleteVacancy;
+    var idOrg;
+    function modalDelete(id, name, idOrganisation) {
+        document.getElementById("nameDeleteVacancy").innerText = name;
+        idDeleteVacancy = id;
+        idOrg = idOrganisation;
+    }
+
+    function deleteVacancy() {
+        var organisation = idOrg;
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Action("DeleteVacancy", "Vacancy")',
+            data: { "idDeleteVacancy": idDeleteVacancy },
+            dataType: 'html',
+            success: function (result) {
+                
+                window.location.href = '@Url.Action("DetailsOrganisation", "Organisation", new { organisationId = "cid" })'.replace("cid", organisation)
+            }
+        });
+    }
+</script>

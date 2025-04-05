@@ -1,0 +1,84 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Organisation>
+@{
+    ViewData["Title"] = "Список организаций";
+}
+<div class="container">
+
+    <div class="modal fade" id="modalDeleteOrganisation" data-bs-backdrop="static" data-bs-keyboard="false" 
+                            tabindex="-1" aria-labelledby="labelModalDeleteOrganisation" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModalDeleteOrganisation">Удалить Организацию <span id="nameDeleteOrganisation"></span> ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearName()"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearName()">Отмена</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteOrganisation()">Ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a asp-action="CreateOrganisation" class="btn btn-primary">Добавить</a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id Организации</th>
+                <th>Название</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr ondblclick="detailsOrganisation('@item.OrganizationId')">
+                    <td>@item.OrganizationId</td>
+                    <td>@item.Name</td>
+                    <td><a>Вакансии</a></td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#modalDeleteOrganisation" 
+                                                    onclick="modalDelete('@item.OrganizationId', '@item.Name')">
+                            <img src="~/images/delete_icon.png" alt="Удалить" title="Удалить" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+
+    var idDeleteOrganisation;
+
+    function modalDelete(id, name) {
+        document.getElementById("nameDeleteOrganisation").innerText = name;
+        idDeleteOrganisation = id;
+    }
+
+    function deleteOrganisation() {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Action("DeleteOrganisation", "Organisation")',
+            data: { "idDeleteOrganisation": idDeleteOrganisation },
+            dataType: 'html',
+            success: function (result) {
+                window.location.href = '@Url.Action("Organisations", "Organisation")'
+            }
+        });
+    }
+
+    function detailsOrganisation(organisationId){
+        location.href = "@Url.Action("DetailsOrganisation", "Organisation", new { organisationId = "cid" })".replace("cid", organisationId);
+    }
+
+</script>
