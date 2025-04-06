@@ -13,7 +13,7 @@ namespace NicksSchoolDiaryApi.Filters
         public CheckClassIdFilterAttribute(IStudentClassService studentClassService)
         {
             _studentClassService = studentClassService;
-        }   
+        }
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
 
@@ -22,7 +22,7 @@ namespace NicksSchoolDiaryApi.Filters
                 var student = context.ActionArguments["student"];
                 if (student is Student studentObj)
                 {
-                    if ( _studentClassService.GetClass(studentObj.StudentClassId) is null )
+                    if (_studentClassService.GetClass(studentObj.StudentClassId) is null)
                     {
                         studentObj.StudentClassId = _studentClassService.GetStudentClasses().First().Id;
                         if (studentObj.StudentClassId <= 0)
@@ -32,7 +32,7 @@ namespace NicksSchoolDiaryApi.Filters
                         }
                         context.ActionArguments["student"] = studentObj;
                     }
-                }               
+                }
             }
             else
             {
@@ -42,8 +42,4 @@ namespace NicksSchoolDiaryApi.Filters
             await next();
         }
     }
-
-
-   
-
 }

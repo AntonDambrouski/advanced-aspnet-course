@@ -37,5 +37,4 @@ namespace NicksSchoolDiaryApi.Middleware
             return builder.UseMiddleware<CheckUserAgentMiddleware>(useragent);
         }
     }
-
 }

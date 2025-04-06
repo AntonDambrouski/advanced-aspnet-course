@@ -5,10 +5,10 @@ namespace NicksSchoolDiaryApi.Services
     public class StudentService : IStudentService
     {
         private static readonly List<Student> _students = new List<Student>();
-        
+
         static StudentService()
         {
-            _students.Add(new Student() { Id = 1, Name = "John Smith", DateOfBirth = new DateOnly(2018, 5, 2), StudentClassId = 1});
+            _students.Add(new Student() { Id = 1, Name = "John Smith", DateOfBirth = new DateOnly(2018, 5, 2), StudentClassId = 1 });
             _students.Add(new Student() { Id = 2, Name = "Adam Wexler", DateOfBirth = new DateOnly(2019, 1, 20), StudentClassId = 1 });
             _students.Add(new Student() { Id = 3, Name = "Mark Daw", DateOfBirth = new DateOnly(2019, 3, 12), StudentClassId = 2 });
             _students.Add(new Student() { Id = 4, Name = "Selena Williams", DateOfBirth = new DateOnly(2017, 11, 21), StudentClassId = 4 });
@@ -22,7 +22,7 @@ namespace NicksSchoolDiaryApi.Services
         public void DeleteStudent(int studentId)
         {
             var student = GetStudentById(studentId);
-            if (student != null) 
+            if (student != null)
             {
                 _students.Remove(student);
             }
@@ -45,11 +45,12 @@ namespace NicksSchoolDiaryApi.Services
 
         public void UpdateStudent(Student student)
         {
-            _students.Where(x => x.Id.Equals(student.Id)).ToList().ForEach(i => { 
+            _students.Where(x => x.Id.Equals(student.Id)).ToList().ForEach(i =>
+            {
                 i.StudentClassId = student.StudentClassId;
                 i.DateOfBirth = student.DateOfBirth;
-                i.Name = student.Name;  
-            }); 
+                i.Name = student.Name;
+            });
         }
     }
 }

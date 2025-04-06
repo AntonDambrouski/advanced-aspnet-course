@@ -9,7 +9,5 @@ namespace NicksSchoolDiaryApi.Models
 
         [Required]
         public string Name { get; set; } = String.Empty;
-
-       
     }
 }

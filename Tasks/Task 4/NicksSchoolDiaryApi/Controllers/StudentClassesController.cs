@@ -20,7 +20,7 @@ namespace NicksSchoolDiaryApi.Controllers
         public IEnumerable<StudentClass> Get()
         {
             var studentClasses = _studentClassService.GetStudentClasses();
-            if (studentClasses == null) 
+            if (studentClasses == null)
             {
                 return Enumerable.Empty<StudentClass>();
             }
@@ -32,16 +32,16 @@ namespace NicksSchoolDiaryApi.Controllers
         public ActionResult<StudentClass> Get(int id)
         {
             StudentClass? studentClass = _studentClassService.GetClass(id);
-            if (studentClass == null) 
+            if (studentClass == null)
             {
                 return NotFound();
             }
             return Ok(studentClass);
         }
-        
+
         [HttpGet("{id}/students")]
         public ActionResult<List<Student>> GetStudents(int id)
-        {           
+        {
             List<Student> students = _studentService.GetStudentsByClassId(id);
             if (students == null)
             {
@@ -54,7 +54,7 @@ namespace NicksSchoolDiaryApi.Controllers
         [HttpPost]
         public ActionResult<StudentClass> Post([FromBody] StudentClass studentClass)
         {
-            int maxId = _studentClassService.GetStudentClasses().Max(x=> x.Id) + 1;            
+            int maxId = _studentClassService.GetStudentClasses().Max(x => x.Id) + 1;
             studentClass.Id = maxId;
             _studentClassService.AddClass(studentClass);
             return CreatedAtAction(nameof(Get), new { id = maxId }, studentClass);
@@ -63,7 +63,7 @@ namespace NicksSchoolDiaryApi.Controllers
         // PUT /<StudentClassesController>/5
         [HttpPut("{id}")]
         public ActionResult<StudentClass> Put(int id, [FromBody] StudentClass studentClass)
-        {          
+        {
             if (_studentClassService.GetClass(id) == null)
             {
                 return BadRequest();
@@ -71,7 +71,7 @@ namespace NicksSchoolDiaryApi.Controllers
             StudentClass newStudentClass = new StudentClass()
             {
                 Id = id,
-                Name = studentClass.Name,                
+                Name = studentClass.Name,
             };
             _studentClassService.UpdateClass(newStudentClass);
             return Ok(newStudentClass);
@@ -81,7 +81,7 @@ namespace NicksSchoolDiaryApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if (_studentClassService.GetClass(id) == null )
+            if (_studentClassService.GetClass(id) == null)
             {
                 return BadRequest();
             }

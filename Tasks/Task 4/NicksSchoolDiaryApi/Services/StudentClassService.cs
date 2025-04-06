@@ -33,7 +33,7 @@ namespace NicksSchoolDiaryApi.Services
 
         public StudentClass? GetClass(int id)
         {
-            return  _studentClasses.FirstOrDefault(x => x.Id == id);                
+            return _studentClasses.FirstOrDefault(x => x.Id == id);
         }
 
         public List<StudentClass> GetStudentClasses()

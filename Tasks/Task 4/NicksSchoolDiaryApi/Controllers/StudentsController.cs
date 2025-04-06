@@ -42,10 +42,10 @@ namespace SchoolDiaryApi.Controllers
 
         // POST api/<StudentController>
         [HttpPost]
-        [TypeFilter(typeof(CheckClassIdFilterAttribute))]      
+        [TypeFilter(typeof(CheckClassIdFilterAttribute))]
         public ActionResult Post([FromBody] Student student)
         {
-            var studentId =  _studentService.GetAllStudents()?.Max(x => x.Id) ?? 0;
+            var studentId = _studentService.GetAllStudents()?.Max(x => x.Id) ?? 0;
             int maxid = studentId + 1;
             student.Id = maxid;
             _studentService.AddStudent(student);
@@ -56,7 +56,7 @@ namespace SchoolDiaryApi.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Student student)
         {
-            if ( _studentService.GetStudentById(id) is null)
+            if (_studentService.GetStudentById(id) is null)
             {
                 return BadRequest();
             }
@@ -75,16 +75,12 @@ namespace SchoolDiaryApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            if ( _studentService.GetStudentById(id) is null)
+            if (_studentService.GetStudentById(id) is null)
             {
                 return BadRequest();
             }
             _studentService.DeleteStudent(id);
-            return NoContent(); 
+            return NoContent();
         }
-
-
-
-
     }
 }
