@@ -1,15 +1,28 @@
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using MovieManager.Core.Configurations;
+using MovieManager.Core.Entities;
+using MovieManager.Core.Interfaces;
+using MovieManager.Core.Services;
+using MovieManager.Core.Validations;
+using MovieManager.Infrustructure;
+using MovieManager.Infrustructure.Data;
 using MovieManagerApi.Middlewares;
-using MovieManagerApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<MoviesServiceConfig>(builder.Configuration.GetSection(nameof(MoviesServiceConfig)));
 builder.Services.AddScoped<IMoviesService, MoviesService>();
 builder.Services.AddScoped<IReviewsService, ReviewsService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IValidator<Movie>, MovieValidator>();
+
+InfrustructureRegistrator.RegisterServices(builder.Services, builder.Configuration, builder.Environment.IsDevelopment());
 
 var app = builder.Build();
 
@@ -18,6 +31,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<MovieContext>();
+        dbContext.Database.Migrate();
+    }
 }
 
 app.UseHttpsRedirection();

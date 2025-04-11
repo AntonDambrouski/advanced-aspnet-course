@@ -1,6 +1,6 @@
-﻿using MovieManagerApi.Entities;
+﻿using MovieManager.Core.Entities;
 
-namespace MovieManagerApi.Services;
+namespace MovieManager.Core.Interfaces;
 public interface IReviewsService
 {
     void AddReview(Review review);

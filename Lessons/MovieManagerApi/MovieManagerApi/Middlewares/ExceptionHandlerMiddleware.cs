@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MovieManagerApi.Exceptions;
+using MovieManager.Core.Exceptions;
 
 namespace MovieManagerApi.Middlewares;
 
@@ -18,6 +18,17 @@ public class ExceptionHandlerMiddleware
         try
         {
             await _next(context);
+        }
+        catch (DomainException dex)
+        {
+            var details = new ProblemDetails
+            {
+                Title = "Domain Exception",
+                Status = StatusCodes.Status400BadRequest,
+                Detail = dex.Message
+            };
+
+            await context.Response.WriteAsJsonAsync(details);
         }
         catch (ArgumentException ex)
         {

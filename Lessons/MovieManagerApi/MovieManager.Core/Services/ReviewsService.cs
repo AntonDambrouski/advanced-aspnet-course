@@ -1,6 +1,7 @@
-﻿using MovieManagerApi.Entities;
+﻿using MovieManager.Core.Entities;
+using MovieManager.Core.Interfaces;
 
-namespace MovieManagerApi.Services;
+namespace MovieManager.Core.Services;
 
 public class ReviewsService : IReviewsService
 {
