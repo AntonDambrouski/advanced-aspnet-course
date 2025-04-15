@@ -9,7 +9,7 @@ namespace NicksSchoolDiary.Domain.Interfaces.Repositories
 {
     public interface IStudentRepository: IBaseRepository<Student>
     {
-        ValueTask<List<Student>> GetStudentsByClassIdAsync(int classId);
-        ValueTask<Student?> GetStudentByIdAsync(int studentId);
+        Task<List<Student>> GetStudentsByClassIdAsync(int classId);
+        Task<Student?> GetStudentByIdAsync(int studentId);
     }
 }

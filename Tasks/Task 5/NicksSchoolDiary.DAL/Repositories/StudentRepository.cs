@@ -18,11 +18,11 @@ namespace NicksSchoolDiary.DAL.Repositories
              
         }     
       
-        public async ValueTask<List<Student>> GetStudentsByClassIdAsync(int classId)
+        public async Task<List<Student>> GetStudentsByClassIdAsync(int classId)
         {
             return  await _context.Students.Where(s => s.StudentClassId == classId).ToListAsync();
         }
-        public async ValueTask<Student?> GetStudentByIdAsync(int studentId)
+        public async Task<Student?> GetStudentByIdAsync(int studentId)
         {
             return await _context.Set<Student>().FirstOrDefaultAsync(s => s.Id == studentId);
         }

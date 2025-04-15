@@ -16,7 +16,7 @@ namespace NicksSchoolDiary.Domain.Services
         }
         
 
-        public async ValueTask<StudentClass> AddClassAsync(StudentClass myClass)
+        public async Task<StudentClass> AddClassAsync(StudentClass myClass)
         {
             var result = _studentClassValidator.Validate(myClass);
             if (!result.IsValid)
@@ -26,7 +26,7 @@ namespace NicksSchoolDiary.Domain.Services
             return await _studentClassRepository.AddAsync(myClass);
         }
 
-        public async ValueTask<bool> DeleteClassAsync(int id)
+        public async Task<bool> DeleteClassAsync(int id)
         {
             StudentClass? studentClass = await GetClassAsync(id);
             if (studentClass != null)
@@ -36,7 +36,7 @@ namespace NicksSchoolDiary.Domain.Services
             return false;
         }
 
-        public async ValueTask<StudentClass> UpdateClassAsync(StudentClass myClass)
+        public async Task<StudentClass> UpdateClassAsync(StudentClass myClass)
         {
             var result = _studentClassValidator.Validate(myClass);
             if (!result.IsValid) 
@@ -51,12 +51,12 @@ namespace NicksSchoolDiary.Domain.Services
             return await _studentClassRepository.UpdateAsync(myClass);
         }
 
-        public async ValueTask<StudentClass?> GetClassAsync(int id)
+        public async Task<StudentClass?> GetClassAsync(int id)
         {
             return await _studentClassRepository.GetStudentClassAsync(id);
         }
 
-        public async ValueTask<List<StudentClass>> GetStudentClassesAsync()
+        public async Task<List<StudentClass>> GetStudentClassesAsync()
         {
             return await _studentClassRepository.GetAllAsync();
         }

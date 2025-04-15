@@ -19,7 +19,7 @@ namespace NicksSchoolDiary.Api.Controllers
         }
         // GET: /<StudentClassesController>
         [HttpGet]
-        public async ValueTask<IEnumerable<StudentClass>> Get()
+        public async Task<IEnumerable<StudentClass>> Get()
         {
             var studentClasses = await _studentClassService.GetStudentClassesAsync();
             if (studentClasses == null)
@@ -31,7 +31,7 @@ namespace NicksSchoolDiary.Api.Controllers
 
         // GET /<StudentClassesController>/5
         [HttpGet("{id}")]
-        public async ValueTask<ActionResult<StudentClass>> Get(int id)
+        public async Task<ActionResult<StudentClass>> Get(int id)
         {
             StudentClass? studentClass = await _studentClassService.GetClassAsync(id);
             if (studentClass == null)
@@ -42,7 +42,7 @@ namespace NicksSchoolDiary.Api.Controllers
         }
 
         [HttpGet("{id}/students")]
-        public async ValueTask<ActionResult<List<Student>>> GetStudents(int id)
+        public async Task<ActionResult<List<Student>>> GetStudents(int id)
         {
             List<Student> students = await _studentService.GetStudentsByClassIdAsync(id);
             if (students == null)
@@ -54,7 +54,7 @@ namespace NicksSchoolDiary.Api.Controllers
 
         // POST /<StudentClassesController>
         [HttpPost]
-        public async ValueTask<ActionResult<StudentClass>> Post([FromBody] StudentClass studentClass)
+        public async Task<ActionResult<StudentClass>> Post([FromBody] StudentClass studentClass)
         {                   
             var existedClass = await _studentClassService.GetClassAsync(studentClass.Id);
             if (existedClass != null)
@@ -67,7 +67,7 @@ namespace NicksSchoolDiary.Api.Controllers
 
         // PUT /<StudentClassesController>/5
         [HttpPut("{id}")]
-        public async ValueTask<ActionResult<StudentClass>> Put(int id, [FromBody] StudentClass studentClass)
+        public async Task<ActionResult<StudentClass>> Put(int id, [FromBody] StudentClass studentClass)
         {
 
             var studentClassForUpdate = await _studentClassService.GetClassAsync(id);
@@ -82,7 +82,7 @@ namespace NicksSchoolDiary.Api.Controllers
 
         // DELETE /<StudentClassesController>/5
         [HttpDelete("{id}")]
-        public async ValueTask<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             var studentClass = await _studentClassService.GetClassAsync(id);
             if (studentClass is null)

@@ -16,7 +16,7 @@ namespace NicksSchoolDiary.DAL.Repositories
         {
         }
 
-        public async ValueTask<StudentClass?> GetStudentClassAsync(int id)
+        public async Task<StudentClass?> GetStudentClassAsync(int id)
         {
             return await _context.Set<StudentClass>().FirstOrDefaultAsync(x => x.Id == id);
         }

@@ -8,9 +8,9 @@ namespace NicksSchoolDiary.Domain.Interfaces.Repositories
 {
     public interface IBaseRepository<T> where T : class
     {
-        ValueTask<T> AddAsync(T entity);
-        ValueTask<bool> DeleteAsync(T entity);
-        ValueTask<T> UpdateAsync(T entity);        
-        ValueTask<List<T>> GetAllAsync();
+        Task<T> AddAsync(T entity);
+        Task<bool> DeleteAsync(T entity);
+        Task<T> UpdateAsync(T entity);        
+        Task<List<T>> GetAllAsync();
     }
 }

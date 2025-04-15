@@ -17,14 +17,14 @@ namespace NicksSchoolDiary.DAL.Repositories
             this._context = context;
         }   
 
-        public async ValueTask<T> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async ValueTask<bool> DeleteAsync(T entity)
+        public async Task<bool> DeleteAsync(T entity)
         {
             var existingEntity = _context.Set<T>().Entry(entity).Entity;
             if (existingEntity == null)
@@ -36,13 +36,13 @@ namespace NicksSchoolDiary.DAL.Repositories
             
         }
 
-        public async ValueTask<List<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
         }
 
         
-        public async ValueTask<T> UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();

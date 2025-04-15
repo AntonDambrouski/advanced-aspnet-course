@@ -18,7 +18,7 @@ namespace NicksSchoolDiary.Domain.Services
             _studentValidator = studentValidator;
         }
         
-        public async ValueTask<Student> AddStudentAsync(Student student)
+        public async Task<Student> AddStudentAsync(Student student)
         {
             
             var studentClass = await _studentClassRepository.GetStudentClassAsync(student.StudentClassId);
@@ -41,7 +41,7 @@ namespace NicksSchoolDiary.Domain.Services
 
         }
 
-        public async ValueTask<bool> DeleteStudentAsync(int studentId)
+        public async Task<bool> DeleteStudentAsync(int studentId)
         {
             var student = await _studentRepository.GetStudentByIdAsync(studentId);
             if (student == null)
@@ -51,23 +51,23 @@ namespace NicksSchoolDiary.Domain.Services
             return await  _studentRepository.DeleteAsync(student);
         }
 
-        public async ValueTask<List<Student>> GetAllStudentsAsync()
+        public async Task<List<Student>> GetAllStudentsAsync()
         {
             return await _studentRepository.GetAllAsync();
         }
 
-        public async ValueTask<Student?> GetStudentByIdAsync(int studentId)
+        public async Task<Student?> GetStudentByIdAsync(int studentId)
         {
             return await _studentRepository.GetStudentByIdAsync(studentId);
                 
         }
 
-        public async ValueTask<List<Student>> GetStudentsByClassIdAsync(int studentClassId)
+        public async Task<List<Student>> GetStudentsByClassIdAsync(int studentClassId)
         {
             return await _studentRepository.GetStudentsByClassIdAsync(studentClassId);
         }
 
-        public async ValueTask<Student> UpdateStudentAsync(Student student)
+        public async Task<Student> UpdateStudentAsync(Student student)
         {
             var result = _studentValidator.Validate(student);
             if (!result.IsValid)

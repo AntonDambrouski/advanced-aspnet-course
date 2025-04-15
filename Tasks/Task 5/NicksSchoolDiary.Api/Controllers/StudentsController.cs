@@ -23,14 +23,14 @@ namespace NicksSchoolDiary.Api.Controllers
 
         // GET: api/<StudentController>
         [HttpGet]
-        public async ValueTask<IEnumerable<Student>> Get()
+        public async Task<IEnumerable<Student>> Get()
         {
             return await _studentService.GetAllStudentsAsync();
         }
 
         // GET api/<StudentController>/5
         [HttpGet("{id}")]
-        public async ValueTask<ActionResult<Student>> Get(int id)
+        public async Task<ActionResult<Student>> Get(int id)
         {
             Student? student = await _studentService.GetStudentByIdAsync(id);
             if (student is null)
@@ -44,7 +44,7 @@ namespace NicksSchoolDiary.Api.Controllers
         // POST api/<StudentController>
         [HttpPost]
         [TypeFilter(typeof(CheckClassIdFilterAttribute))]
-        public async ValueTask<ActionResult> Post([FromBody] Student student)
+        public async Task<ActionResult> Post([FromBody] Student student)
         {
             var createdStudent = await _studentService.AddStudentAsync(student);
             return CreatedAtAction(nameof(Get), new { id = createdStudent.Id }, createdStudent);
@@ -52,7 +52,7 @@ namespace NicksSchoolDiary.Api.Controllers
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public async ValueTask<ActionResult> Put(int id, [FromBody] Student student)
+        public async Task<ActionResult> Put(int id, [FromBody] Student student)
         {
             if ( await _studentService.GetStudentByIdAsync(id) is null)
             {
@@ -65,7 +65,7 @@ namespace NicksSchoolDiary.Api.Controllers
 
         // DELETE api/<StudentController>/5
         [HttpDelete("{id}")]
-        public async ValueTask<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             if (await _studentService.GetStudentByIdAsync(id) is null)
             {

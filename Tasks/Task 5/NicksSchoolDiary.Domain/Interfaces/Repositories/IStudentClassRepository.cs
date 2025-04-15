@@ -9,6 +9,6 @@ namespace NicksSchoolDiary.Domain.Interfaces.Repositories
 {
     public interface IStudentClassRepository: IBaseRepository<StudentClass>
     {
-        ValueTask<StudentClass?> GetStudentClassAsync(int id);
+        Task<StudentClass?> GetStudentClassAsync(int id);
     }
 }

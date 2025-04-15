@@ -4,10 +4,10 @@ namespace NicksSchoolDiary.Domain.Interfaces
 {
     public interface IStudentClassService
     {
-        ValueTask<StudentClass> AddClassAsync(StudentClass myClass);
-        ValueTask<bool> DeleteClassAsync(int id);
-        ValueTask<StudentClass> UpdateClassAsync(StudentClass myClass);
-        ValueTask<StudentClass?> GetClassAsync(int id);
-        ValueTask<List<StudentClass>> GetStudentClassesAsync();
+        Task<StudentClass> AddClassAsync(StudentClass myClass);
+        Task<bool> DeleteClassAsync(int id);
+        Task<StudentClass> UpdateClassAsync(StudentClass myClass);
+        Task<StudentClass?> GetClassAsync(int id);
+        Task<List<StudentClass>> GetStudentClassesAsync();
     }
 }
