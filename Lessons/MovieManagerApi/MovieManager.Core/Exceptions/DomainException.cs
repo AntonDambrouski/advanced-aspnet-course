@@ -1,4 +1,4 @@
-﻿namespace MovieManagerApi.Exceptions;
+﻿namespace MovieManager.Core.Exceptions;
 
 public class DomainException : Exception
 {

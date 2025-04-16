@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MovieManagerApi.Entities;
+using MovieManager.Core.Entities;
+using MovieManager.Core.Exceptions;
+using MovieManager.Core.Interfaces;
 using MovieManagerApi.Filters;
-using MovieManagerApi.Services;
 
 namespace MovieManagerApi.Controllers;
 
@@ -21,17 +22,16 @@ public class MoviesController : ControllerBase
     // GET: api/<MoviesController>
     [HttpGet]
     [AddHeaderFilter("X-My-Custom-Header", "My custom value")]
-    public IEnumerable<Movie> Get()
+    public async ValueTask<IEnumerable<Movie>> Get()
     {
-        throw new ArgumentOutOfRangeException();
-        return _moviesService.GetAllMovies();
+        return await _moviesService.GetAllMoviesAsync();
     }
 
     // GET api/<MoviesController>/5
     [HttpGet("{id}")]
-    public ActionResult<Movie> Get(int id)
+    public async ValueTask<ActionResult<Movie>> Get(int id)
     {
-        var movie = _moviesService.GetMovie(id);
+        var movie = await _moviesService.GetAsync(id);
         if (movie == null)
         {
             return BadRequest();
@@ -42,78 +42,54 @@ public class MoviesController : ControllerBase
 
     // POST api/<MoviesController>
     [HttpPost]
-    public ActionResult Post([FromBody] Movie movie)
+    public async ValueTask<ActionResult> Post([FromBody] Movie movie)
     {
-        var movies = _moviesService.GetAllMovies();
-        var maxId = movies.Count > 0 ? movies.Max(m => m.Id) : 0;
-        movie.Id = maxId + 1;
+        var created = await _moviesService.CreateAsync(movie);
 
-        _moviesService.AddMovie(movie);
-
-        return CreatedAtAction(nameof(Get), new { id = movie.Id }, movie);
+        return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
     }
 
     // PUT api/<MoviesController>/5
     [HttpPut("{id}")]
-    public ActionResult Put(int id, [FromBody] Movie movie)
+    public async ValueTask<ActionResult> Put(int id, [FromBody] Movie movie)
     {
-        var savedMovie = _moviesService.GetMovie(id);
-        if (savedMovie == null)
-        {
-            return BadRequest();
-        }
-
-        var updatedMovie = new Movie
-        {
-            Id = id,
-            Title = movie.Title,
-            Description = movie.Description,
-            Genre = movie.Genre
-        };
-
-        _moviesService.UpdateMovie(id, updatedMovie);
-
-        return Ok(updatedMovie);
+        var updated = await _moviesService.UpdateMovieAsync(id, movie);
+        return Ok(updated);
     }
 
     // DELETE api/<MoviesController>/5
     [HttpDelete("{id}")]
-    public ActionResult Delete(int id)
+    public async ValueTask<ActionResult> Delete(int id)
     {
-        var movie = _moviesService.GetMovie(id);
-        if (movie == null)
-        {
-            return BadRequest();
-        }
-
-        _moviesService.DeleteMovie(id);
-        return NoContent();
+        var deleted = await _moviesService.DeleteMovieAsync(id);
+       
+        return Ok(deleted);
     }
 
-    [HttpGet("{movieId:int}/reviews")]
-    public ActionResult<IEnumerable<Review>> GetReviews(int movieId)
-    {
-        var reviews = _reviewsService.GetReviewsByMovieId(movieId);
+    //[HttpGet("{movieId:int}/reviews")]
+    //public ValueTask<ActionResult<IEnumerable<Review>>> GetReviews(int movieId)
+    //{
+    //    var reviews = _reviewsService.GetReviewsByMovieId(movieId);
 
-        return Ok(reviews);
-    }
+    //    return Ok(reviews);
+    //}
 
-    [HttpPost("{movieId:int}/reviews")]
-    public ActionResult<Review> AddReview(int movieId, [FromBody] Review review)
-    {
-        var movie = _moviesService.GetMovie(movieId);
-        if (movie == null)
-        {
-            return NotFound();
-        }
+    //[HttpPost("{movieId:int}/reviews")]
+    //public ActionResult<Review> AddReview(int movieId, [FromBody] Review review)
+    //{
+    //    var movie = _moviesService.GetMovie(movieId);
+    //    if (movie == null)
+    //    {
+    //        return NotFound();
+    //    }
 
-        var reviews = _reviewsService.GetAllReviews();
-        var maxId = reviews.Count > 0 ? reviews.Max(r => r.Id) : 0;
-        review.Id = maxId + 1;
-        review.MovieId = movieId;
+    //    var reviews = _reviewsService.GetAllReviews();
+    //    var maxId = reviews.Count > 0 ? reviews.Max(r => r.Id) : 0;
+    //    review.Id = maxId + 1;
+    //    review.MovieId = movieId;
 
-        _reviewsService.AddReview(review);
+    //    _reviewsService.AddReview(review);
 
-        return CreatedAtAction(nameof(GetReviews), new { movieId }, review);
-    }
+    //    return CreatedAtAction(nameof(GetReviews), new { movieId }, review);
+    //}
 }
