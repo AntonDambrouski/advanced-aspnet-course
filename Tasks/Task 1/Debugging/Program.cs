@@ -51,7 +51,7 @@ void SelectionSort(int[] nums)
   {
     var maxIndex = i;
     int j;
-    for (j = i - 1; j >= 0; --j)
+    for (j = i - 1; j > 0; --j)
     {
       if (nums[j] > nums[maxIndex])
       {
