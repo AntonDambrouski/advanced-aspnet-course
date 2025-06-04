@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "MovieManagerApi\\MovieManagerApi.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "MovieManager.Client\\MovieManager.Client.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

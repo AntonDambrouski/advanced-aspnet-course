@@ -24,6 +24,16 @@ builder.Services.AddScoped<IValidator<Movie>, MovieValidator>();
 
 InfrustructureRegistrator.RegisterServices(builder.Services, builder.Configuration, builder.Environment.IsDevelopment());
 
+var frontendUrl = builder.Configuration.GetValue<string>("FrontendUrl") ?? "https://localhost:5001";
+builder.Services.AddCors(setup =>
+{
+    setup.AddPolicy("FrontendCors",
+        policy => policy.WithOrigins(frontendUrl)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+        );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,14 +41,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<MovieContext>();
-        dbContext.Database.Migrate();
-    }
+    //using (var scope = app.Services.CreateScope())
+    //{
+    //    var dbContext = scope.ServiceProvider.GetRequiredService<MovieContext>();
+    //    dbContext.Database.Migrate();
+    //}
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("FrontendCors");
 
 app.UseAuthorization();
 

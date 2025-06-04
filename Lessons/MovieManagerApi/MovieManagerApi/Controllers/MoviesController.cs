@@ -19,17 +19,19 @@ public class MoviesController : ControllerBase
         _reviewsService = reviewsService;
     }
 
+
     // GET: api/<MoviesController>
     [HttpGet]
     [AddHeaderFilter("X-My-Custom-Header", "My custom value")]
-    public async ValueTask<IEnumerable<Movie>> Get()
+    public async Task<IActionResult> Get()
     {
-        return await _moviesService.GetAllMoviesAsync();
+        var movies = await _moviesService.GetAllMoviesAsync();
+        return Ok(movies);
     }
 
     // GET api/<MoviesController>/5
     [HttpGet("{id}")]
-    public async ValueTask<ActionResult<Movie>> Get(int id)
+    public async Task<ActionResult<Movie>> Get(int id)
     {
         var movie = await _moviesService.GetAsync(id);
         if (movie == null)
@@ -42,7 +44,7 @@ public class MoviesController : ControllerBase
 
     // POST api/<MoviesController>
     [HttpPost]
-    public async ValueTask<ActionResult> Post([FromBody] Movie movie)
+    public async Task<ActionResult> Post([FromBody] Movie movie)
     {
         var created = await _moviesService.CreateAsync(movie);
 
@@ -51,7 +53,7 @@ public class MoviesController : ControllerBase
 
     // PUT api/<MoviesController>/5
     [HttpPut("{id}")]
-    public async ValueTask<ActionResult> Put(int id, [FromBody] Movie movie)
+    public async Task<ActionResult> Put(int id, [FromBody] Movie movie)
     {
         var updated = await _moviesService.UpdateMovieAsync(id, movie);
         return Ok(updated);
@@ -59,7 +61,7 @@ public class MoviesController : ControllerBase
 
     // DELETE api/<MoviesController>/5
     [HttpDelete("{id}")]
-    public async ValueTask<ActionResult> Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
         var deleted = await _moviesService.DeleteMovieAsync(id);
        
@@ -67,7 +69,7 @@ public class MoviesController : ControllerBase
     }
 
     //[HttpGet("{movieId:int}/reviews")]
-    //public ValueTask<ActionResult<IEnumerable<Review>>> GetReviews(int movieId)
+    //public Task<ActionResult<IEnumerable<Review>>> GetReviews(int movieId)
     //{
     //    var reviews = _reviewsService.GetReviewsByMovieId(movieId);
 

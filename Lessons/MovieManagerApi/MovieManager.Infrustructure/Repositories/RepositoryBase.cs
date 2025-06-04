@@ -15,6 +15,21 @@ internal class RepositoryBase<TEntity>(MovieContext context)
         return movie;
     }
 
+    protected IQueryable<TEntity> GetAllAsync(string searchTerm, Func<string[]> searchableFieldsSelector)
+    {
+        var query = context.Set<TEntity>().AsQueryable();
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var searchableFields = searchableFieldsSelector();
+            foreach (var field in searchableFields)
+            {
+                query = query.Where(e => EF.Property<string>(e, field).Contains(searchTerm));
+            }
+        }
+
+        return query;
+    }
+
     public async ValueTask<bool> DeleteAsync(int id)
     {
         var entity = await GetAsync(id);

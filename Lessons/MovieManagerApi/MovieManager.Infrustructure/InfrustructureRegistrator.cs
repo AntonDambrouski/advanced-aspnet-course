@@ -13,7 +13,7 @@ public static class InfrustructureRegistrator
         if (isDevelopment)
         {
             services.AddDbContext<MovieContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
+                 options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
         }
         else
         {

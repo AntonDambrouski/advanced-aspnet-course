@@ -3,4 +3,5 @@
 namespace MovieManager.Core.Interfaces.Repositories;
 public interface IMoviesRepository : IRepositoryBase<Movie>
 {
+    ValueTask<List<Movie>> GetAllAsync(string searchTerm);
 }

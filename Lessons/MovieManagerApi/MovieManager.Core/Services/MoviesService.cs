@@ -11,6 +11,11 @@ namespace MovieManager.Core.Services;
 
 public class MoviesService(IMoviesRepository moviesRepository, IValidator<Movie> validator, IOptions<MoviesServiceConfig> config) : IMoviesService
 {
+    public async ValueTask<List<Movie>> GetAllAsync(string searchTerm)
+    {
+        return await moviesRepository.GetAllAsync(searchTerm);
+    }
+
     public ValueTask<Movie> CreateAsync(Movie movie)
     {
 
