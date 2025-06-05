@@ -6,4 +6,6 @@ public class MovieContext(DbContextOptions<MovieContext> options) : DbContext(op
 {
     public DbSet<Movie> Movies { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<Language> Languages { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }

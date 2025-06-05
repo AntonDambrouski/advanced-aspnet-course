@@ -22,5 +22,6 @@ public static class InfrustructureRegistrator
 
         services.AddScoped<IMoviesRepository, MoviesRepository>();
         services.AddScoped<IReviewsRepository, ReviewsRepository>();
+        services.AddScoped(typeof(INamedEntitiesRepository<>), typeof(NamedEntitiesRepository<>));
     }
 }

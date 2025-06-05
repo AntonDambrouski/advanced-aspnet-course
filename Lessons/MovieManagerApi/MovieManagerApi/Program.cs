@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieManager.Core.Configurations;
 using MovieManager.Core.Entities;
 using MovieManager.Core.Interfaces;
+using MovieManager.Core.Interfaces.Repositories;
 using MovieManager.Core.Services;
 using MovieManager.Core.Validations;
 using MovieManager.Infrustructure;
@@ -41,11 +42,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //using (var scope = app.Services.CreateScope())
-    //{
-    //    var dbContext = scope.ServiceProvider.GetRequiredService<MovieContext>();
-    //    dbContext.Database.Migrate();
-    //}
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<MovieContext>();
+        dbContext.Database.Migrate();
+    }
 }
 
 app.UseHttpsRedirection();
