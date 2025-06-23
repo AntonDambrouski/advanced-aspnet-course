@@ -1,0 +1,9 @@
+<app-tool-bar (toggleSidenav)="onToggleSidenav()"></app-tool-bar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav [opened]="sidenavOpened()" mode="side" opened
+    ><app-sidenav-navigation></app-sidenav-navigation
+  ></mat-sidenav>
+  <mat-sidenav-content
+    ><app-movies-table></app-movies-table
+  ></mat-sidenav-content>
+</mat-sidenav-container>

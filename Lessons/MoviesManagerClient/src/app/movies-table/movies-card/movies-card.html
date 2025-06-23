@@ -1,0 +1,20 @@
+@if (movie()) {
+<mat-card class="card" appearance="outlined">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{movie()?.title | uppercase}}</mat-card-title>
+  </mat-card-header>
+  <div class="card-image-container">
+    <img mat-card-image fill [ngSrc]="movie()!.posterUrl" alt="Movie poster" />
+  </div>
+  <mat-card-content>
+    <p>
+      Genre: {{movie()?.genre}}<br />
+      Release Date: {{movie()?.releaseDate | date:'longDate'}}<br />
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button matButton>LIKE</button>
+  </mat-card-actions>
+</mat-card>
+}
