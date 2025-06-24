@@ -1,0 +1,51 @@
+.movie-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.movie-card {
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+  font-size: 16px;
+  color: #333;
+  margin-top: 12px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.review-card {
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #fafafa;
+
+  .review-text {
+    font-style: italic;
+    color: #444;
+  }
+
+  .rating {
+    font-weight: 600;
+    color: #2e7d32;
+  }
+
+  .created-date {
+    font-size: 12px;
+    color: #888;
+  }
+}

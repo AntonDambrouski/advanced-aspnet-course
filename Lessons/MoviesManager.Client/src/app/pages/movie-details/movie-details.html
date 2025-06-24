@@ -1,0 +1,22 @@
+<div class="movie-detail-container">
+  <mat-card class="movie-card">
+    <mat-card-header>
+      <mat-card-title>{{ movie().title }}</mat-card-title>
+      <mat-card-subtitle>{{ movie().genre }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="description">{{ movie().description }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <h2>Reviews</h2>
+
+  <div class="reviews">
+    <mat-card class="review-card" *ngFor="let review of movie().reviews">
+      <mat-card-content>
+        <p class="review-text">“{{ review.content }}”</p>
+        <p class="rating">Rating: {{ review.rating }}/5</p>
+      </mat-card-content></mat-card
+    >
+  </div>
+</div>

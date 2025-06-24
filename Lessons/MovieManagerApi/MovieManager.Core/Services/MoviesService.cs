@@ -9,14 +9,17 @@ using MovieManager.Core.Interfaces.Repositories;
 
 namespace MovieManager.Core.Services;
 
-public class MoviesService(IMoviesRepository moviesRepository, IValidator<Movie> validator, IOptions<MoviesServiceConfig> config) : IMoviesService
+public class MoviesService(IMoviesRepository moviesRepository,
+    IReviewsRepository reviewsRepository,
+    IValidator<Movie> validator,
+    IOptions<MoviesServiceConfig> config) : IMoviesService
 {
-    public async ValueTask<List<Movie>> GetAllAsync(string searchTerm)
+    public async Task<List<Movie>> GetAllAsync(string searchTerm)
     {
         return await moviesRepository.GetAllAsync(searchTerm);
     }
 
-    public ValueTask<Movie> CreateAsync(Movie movie)
+    public Task<Movie> CreateAsync(Movie movie)
     {
 
         var validationResult = validator.Validate(movie);
@@ -30,24 +33,24 @@ public class MoviesService(IMoviesRepository moviesRepository, IValidator<Movie>
         return createdMovie;
     }
 
-    public async ValueTask<bool> DeleteMovieAsync(int id)
+    public async Task<bool> DeleteMovieAsync(int id)
     {
         var deleted = await moviesRepository.DeleteAsync(id);
         return deleted;
     }
 
-    public async ValueTask<Movie?> GetAsync(int id)
+    public async Task<Movie?> GetAsync(int id)
     {
         return await moviesRepository.GetAsync(id);
     }
 
 
-    public async ValueTask<List<Movie>> GetAllMoviesAsync()
+    public async Task<List<Movie>> GetAllMoviesAsync()
     {
         return await moviesRepository.GetAllAsync();
     }
 
-    public async ValueTask<Movie> UpdateMovieAsync(int id, Movie movieModel)
+    public async Task<Movie> UpdateMovieAsync(int id, Movie movieModel)
     {
         var savedMovie = await GetAsync(id);
         if (savedMovie == null)
@@ -64,5 +67,16 @@ public class MoviesService(IMoviesRepository moviesRepository, IValidator<Movie>
         savedMovie.Description = movieModel.Description;
 
         return await moviesRepository.UpdateAsync(savedMovie);
+    }
+
+    public Task<List<Review>> GetReviewsByMovieIdAsync(int movieId)
+    {
+        return reviewsRepository.GetAllByMovieIdAsync(movieId);
+    }
+
+    public Task<Review> AddReviewToMovieAsync(int movieId, Review review)
+    {
+        review.MovieId = movieId;
+        return reviewsRepository.CreateAsync(review);
     }
 }

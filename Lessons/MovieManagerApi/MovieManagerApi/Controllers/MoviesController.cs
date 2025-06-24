@@ -1,23 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieManager.Core.Entities;
-using MovieManager.Core.Exceptions;
 using MovieManager.Core.Interfaces;
+using MovieManagerApi.DTOs;
 using MovieManagerApi.Filters;
 
 namespace MovieManagerApi.Controllers;
 
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
-public class MoviesController : ControllerBase
+public class MoviesController(IMoviesService moviesService,
+    IReviewsService reviewsService, IMapper mapper) : ControllerBase
 {
-    private readonly IMoviesService _moviesService;
-    private readonly IReviewsService _reviewsService;
-
-    public MoviesController(IMoviesService moviesService, IReviewsService reviewsService)
-    {
-        _moviesService = moviesService;
-        _reviewsService = reviewsService;
-    }
 
 
     // GET: api/<MoviesController>
@@ -25,73 +21,91 @@ public class MoviesController : ControllerBase
     [AddHeaderFilter("X-My-Custom-Header", "My custom value")]
     public async Task<IActionResult> Get()
     {
-        var movies = await _moviesService.GetAllMoviesAsync();
-        return Ok(movies);
+        var movies = await moviesService.GetAllMoviesAsync();
+        var moviesDto = mapper.Map<List<MovieDTO>>(movies);
+
+        return Ok(moviesDto);
     }
 
     // GET api/<MoviesController>/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Movie>> Get(int id)
     {
-        var movie = await _moviesService.GetAsync(id);
+        var movie = await moviesService.GetAsync(id);
         if (movie == null)
         {
             return BadRequest();
         }
 
-        return movie;
+        var reviews = await moviesService.GetReviewsByMovieIdAsync(id);
+        var movieDto = mapper.Map<MovieDTO>(movie);
+        movieDto.Reviews = mapper.Map<List<ReviewDTO>>(reviews);
+
+        return Ok(movieDto);
     }
 
     // POST api/<MoviesController>
+    [Authorize(Roles = "Moderator")]
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] Movie movie)
+    public async Task<ActionResult> Post([FromBody] CreateMoveDTO movieDTO)
     {
-        var created = await _moviesService.CreateAsync(movie);
+        var movie = mapper.Map<Movie>(movieDTO);
+        var created = await moviesService.CreateAsync(movie);
 
-        return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
+        var createdDTO = mapper.Map<MovieDTO>(created);
+
+        return CreatedAtAction(nameof(Get), new { id = created.Id }, createdDTO);
     }
 
     // PUT api/<MoviesController>/5
     [HttpPut("{id}")]
-    public async Task<ActionResult> Put(int id, [FromBody] Movie movie)
+    public async Task<ActionResult> Put(int id, [FromBody] MovieDTO movie)
     {
-        var updated = await _moviesService.UpdateMovieAsync(id, movie);
-        return Ok(updated);
+        var savedMovie = await moviesService.GetAsync(id);
+        if (savedMovie == null)
+        {
+            return NotFound();
+        }
+
+        mapper.Map(movie, savedMovie);
+        var updated = await moviesService.UpdateMovieAsync(id, savedMovie);
+
+        var updatedDTO = mapper.Map<MovieDTO>(updated);
+        return Ok(updatedDTO);
     }
 
     // DELETE api/<MoviesController>/5
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-        var deleted = await _moviesService.DeleteMovieAsync(id);
+        var deleted = await moviesService.DeleteMovieAsync(id);
        
         return Ok(deleted);
     }
 
-    //[HttpGet("{movieId:int}/reviews")]
-    //public Task<ActionResult<IEnumerable<Review>>> GetReviews(int movieId)
-    //{
-    //    var reviews = _reviewsService.GetReviewsByMovieId(movieId);
+    [HttpGet("{movieId:int}/reviews")]
+    public async Task<ActionResult<IEnumerable<Review>>> GetReviews(int movieId)
+    {
+        var reviews = await moviesService.GetReviewsByMovieIdAsync(movieId);
+        var reviewsDTO = mapper.Map<List<ReviewDTO>>(reviews);
 
-    //    return Ok(reviews);
-    //}
+        return Ok(reviewsDTO);
+    }
 
-    //[HttpPost("{movieId:int}/reviews")]
-    //public ActionResult<Review> AddReview(int movieId, [FromBody] Review review)
-    //{
-    //    var movie = _moviesService.GetMovie(movieId);
-    //    if (movie == null)
-    //    {
-    //        return NotFound();
-    //    }
+    [HttpPost("{movieId:int}/reviews")]
+    public async Task<ActionResult<Review>> AddReview(int movieId, [FromBody] CreateReviewDTO reviewDTO)
+    {
+        var movie = await moviesService.GetAsync(movieId);
+        if (movie == null)
+        {
+            return NotFound();
+        }
 
-    //    var reviews = _reviewsService.GetAllReviews();
-    //    var maxId = reviews.Count > 0 ? reviews.Max(r => r.Id) : 0;
-    //    review.Id = maxId + 1;
-    //    review.MovieId = movieId;
+        var review = mapper.Map<Review>(reviewDTO);
+        var created = await moviesService.AddReviewToMovieAsync(movieId, review);
 
-    //    _reviewsService.AddReview(review);
+        var createdDTO = mapper.Map<ReviewDTO>(created);
 
-    //    return CreatedAtAction(nameof(GetReviews), new { movieId }, review);
-    //}
+        return CreatedAtAction(nameof(GetReviews), new { movieId }, createdDTO);
+    }
 }

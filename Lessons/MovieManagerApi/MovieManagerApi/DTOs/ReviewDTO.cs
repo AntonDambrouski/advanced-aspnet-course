@@ -1,10 +1,10 @@
-﻿namespace MovieManager.Core.Entities;
+﻿namespace MovieManagerApi.DTOs;
 
-public class Review : Entity
+public class ReviewDTO
 {
+    public int Id { get; set; }
     public string Content { get; set; } = string.Empty;
     public int Rating { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public int MovieId { get; set; }
-    public Movie Movie { get; set; }
 }

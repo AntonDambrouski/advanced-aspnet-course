@@ -3,9 +3,9 @@
 namespace MovieManager.Core.Interfaces.Repositories;
 public interface IRepositoryBase<TEntity> where TEntity : Entity
 {
-    ValueTask<TEntity> CreateAsync(TEntity movie);
-    ValueTask<bool> DeleteAsync(int id);
-    ValueTask<List<TEntity>> GetAllAsync();
-    ValueTask<TEntity?> GetAsync(int id);
-    ValueTask<TEntity> UpdateAsync(TEntity entity);
+    Task<TEntity> CreateAsync(TEntity movie);
+    Task<bool> DeleteAsync(int id);
+    Task<List<TEntity>> GetAllAsync();
+    Task<TEntity?> GetAsync(int id);
+    Task<TEntity> UpdateAsync(TEntity entity);
 }

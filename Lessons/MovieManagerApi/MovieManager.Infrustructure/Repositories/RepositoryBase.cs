@@ -7,7 +7,7 @@ namespace MovieManager.Infrustructure.Repositories;
 internal class RepositoryBase<TEntity>(MovieContext context) 
     : IRepositoryBase<TEntity> where TEntity : Entity
 {
-    public async ValueTask<TEntity> CreateAsync(TEntity movie)
+    public async Task<TEntity> CreateAsync(TEntity movie)
     {
         context.Set<TEntity>().Add(movie);
         await context.SaveChangesAsync();
@@ -30,7 +30,7 @@ internal class RepositoryBase<TEntity>(MovieContext context)
         return query;
     }
 
-    public async ValueTask<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var entity = await GetAsync(id);
         if (entity != null)
@@ -42,18 +42,18 @@ internal class RepositoryBase<TEntity>(MovieContext context)
         return false;
     }
 
-    public async ValueTask<List<TEntity>> GetAllAsync()
+    public async Task<List<TEntity>> GetAllAsync()
     {
         return await context.Set<TEntity>().ToListAsync();
     }
 
-    public async ValueTask<TEntity?> GetAsync(int id)
+    public async Task<TEntity?> GetAsync(int id)
     {
         return await context.Set<TEntity>()
             .FirstOrDefaultAsync(m => m.Id == id);
     }
 
-    public async ValueTask<TEntity> UpdateAsync(TEntity entity)
+    public async Task<TEntity> UpdateAsync(TEntity entity)
     {
         context.Set<TEntity>().Update(entity);
         await context.SaveChangesAsync();
