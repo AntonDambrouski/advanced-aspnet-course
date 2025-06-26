@@ -1,4 +1,5 @@
-﻿using MovieManager.Core.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using MovieManager.Core.Entities;
 
 namespace MovieManager.Core.Interfaces;
 public interface IMoviesService
@@ -11,4 +12,5 @@ public interface IMoviesService
     Task<Movie?> GetAsync(int id);
     Task<List<Review>> GetReviewsByMovieIdAsync(int movieId);
     Task<Movie> UpdateMovieAsync(int id, Movie movieModel);
+    Task<string> UploadPosterAsync(int movieId, IFormFile file);
 }

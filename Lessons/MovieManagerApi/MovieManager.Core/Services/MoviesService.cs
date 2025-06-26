@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MovieManager.Core.Configurations;
 using MovieManager.Core.Entities;
@@ -12,8 +13,15 @@ namespace MovieManager.Core.Services;
 public class MoviesService(IMoviesRepository moviesRepository,
     IReviewsRepository reviewsRepository,
     IValidator<Movie> validator,
-    IOptions<MoviesServiceConfig> config) : IMoviesService
+    IOptions<MoviesServiceConfig> config,
+    IFileUploadService fileUploadService) : IMoviesService
 {
+    private readonly string PostersFolderPath = "static/posters";
+    private readonly HashSet<string> AllowedFileExtensions = new HashSet<string>
+    {
+        ".jpg", ".jpeg", ".png", ".gif"
+    };
+
     public async Task<List<Movie>> GetAllAsync(string searchTerm)
     {
         return await moviesRepository.GetAllAsync(searchTerm);
@@ -78,5 +86,31 @@ public class MoviesService(IMoviesRepository moviesRepository,
     {
         review.MovieId = movieId;
         return reviewsRepository.CreateAsync(review);
+    }
+
+    public async Task<string> UploadPosterAsync(int movieId, IFormFile file)
+    {
+        var movie = await GetAsync(movieId);
+        if (movie == null)
+        {
+            throw new DomainException($"Movie with id {movieId} not found.");
+        }
+
+        var fileName = file.FileName;
+        var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
+        if (!AllowedFileExtensions.Contains(fileExtension))
+        {
+            throw new DomainException($"File extension {fileExtension} is not allowed." +
+                $" Allowed extensions are: {string.Join(", ", AllowedFileExtensions)}");
+        }
+
+        var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+
+        await fileUploadService.UploadFileAsync(PostersFolderPath, uniqueFileName, file);
+
+        movie.PosterFileName = uniqueFileName;
+        await moviesRepository.UpdateAsync(movie);
+
+        return uniqueFileName;
     }
 }

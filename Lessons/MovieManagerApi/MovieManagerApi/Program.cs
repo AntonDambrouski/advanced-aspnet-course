@@ -3,6 +3,7 @@ using FluentValidation;
 using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MovieManager.Core.Configurations;
@@ -52,6 +53,9 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddScoped<IValidator<Movie>, MovieValidator>();
 builder.Services.AddScoped<ITokensService, TokensService>();
+
+var currentPath = builder.Environment.ContentRootPath;
+builder.Services.AddScoped<IFileUploadService>(_ => new FileUploadService(currentPath));
 
 InfrustructureRegistrator.RegisterServices(builder.Services, builder.Configuration, builder.Environment.IsDevelopment());
 
@@ -109,6 +113,13 @@ app.UseAuthorization();
 // app.UseMiddleware<CustomMiddleware>();
 
 app.UseCustomExceptionHandler();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "static", "posters")),
+    RequestPath = "/posters"
+});
 
 app.MapControllers();
 

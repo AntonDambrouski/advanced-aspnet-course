@@ -14,8 +14,6 @@ namespace MovieManagerApi.Controllers;
 public class MoviesController(IMoviesService moviesService,
     IReviewsService reviewsService, IMapper mapper) : ControllerBase
 {
-
-
     // GET: api/<MoviesController>
     [HttpGet]
     [AddHeaderFilter("X-My-Custom-Header", "My custom value")]
@@ -45,7 +43,7 @@ public class MoviesController(IMoviesService moviesService,
     }
 
     // POST api/<MoviesController>
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "User")]
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] CreateMoveDTO movieDTO)
     {
@@ -59,7 +57,7 @@ public class MoviesController(IMoviesService moviesService,
 
     // PUT api/<MoviesController>/5
     [HttpPut("{id}")]
-    public async Task<ActionResult> Put(int id, [FromBody] MovieDTO movie)
+    public async Task<ActionResult> Put(int id, [FromBody] UpdateMovieDTO movie)
     {
         var savedMovie = await moviesService.GetAsync(id);
         if (savedMovie == null)
@@ -107,5 +105,18 @@ public class MoviesController(IMoviesService moviesService,
         var createdDTO = mapper.Map<ReviewDTO>(created);
 
         return CreatedAtAction(nameof(GetReviews), new { movieId }, createdDTO);
+    }
+
+    [HttpPost("{movieId:int}/upload-poster")]
+    public async Task<IActionResult> UploadPosterAsync(int movieId, IFormFile file)
+    {
+        if( file == null || file.Length == 0)
+        {
+            return BadRequest("No file uploaded.");
+        }
+
+        var filename = await moviesService.UploadPosterAsync(movieId, file);
+
+        return Ok(new { FileName = filename });
     }
 }

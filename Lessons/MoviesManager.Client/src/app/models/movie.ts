@@ -5,5 +5,6 @@ export interface Movie {
   title: string;
   description: string;
   genre: string;
+  posterFileName?: string;
   reviews: Review[]; // Assuming a movie can have multiple reviews
 }

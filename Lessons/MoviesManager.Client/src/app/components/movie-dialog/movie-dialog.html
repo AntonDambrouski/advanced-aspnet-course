@@ -1,0 +1,24 @@
+<!-- Add Movie/Edit Movie Form -->
+<mat-dialog-content>
+  <form [formGroup]="movieForm" (ngSubmit)="saveMovie()">
+    <mat-form-field class="form-input" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field class="form-input" appearance="fill">
+      <mat-label>Genre</mat-label>
+      <input matInput formControlName="genre" />
+    </mat-form-field>
+
+    <mat-form-field class="form-input" appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <button mat-button type="submit" color="primary">
+      {{ movie ? 'Update' : 'Create' }}
+    </button>
+    <button mat-button type="button" (click)="cancelForm()">Cancel</button>
+  </form>
+</mat-dialog-content>
