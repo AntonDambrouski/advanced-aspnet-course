@@ -5,6 +5,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { MatLabel, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Movie } from '../../models/movie';
@@ -19,6 +20,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatButtonModule,
   ],
   templateUrl: './movie-dialog.html',
   styleUrl: './movie-dialog.css',

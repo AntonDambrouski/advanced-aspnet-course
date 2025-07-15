@@ -1,0 +1,39 @@
+services:
+  moviemanagerapi:
+    image: ${DOCKER_REGISTRY-}moviemanagerapi
+    build:
+      context: /MovieManagerApi
+      dockerfile: MovieManagerApi/Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - moviemanagerdb
+    networks:
+      - internal-network
+
+  moviemanagerdb:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "${SA_PASSWORD}"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+    env_file:
+      - ".env"
+    networks:
+      - internal-network
+
+  frontend:
+    image: moviemanager-frontend
+    build: 
+      context: ./MoviesManager.Client
+    networks:
+      - internal-network
+    ports:
+      - 4200:80
+    depends_on:
+      - moviemanagerapi
+
+networks:
+  internal-network:
+    driver: bridge
