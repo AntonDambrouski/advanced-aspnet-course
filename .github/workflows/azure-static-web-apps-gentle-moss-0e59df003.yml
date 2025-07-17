@@ -48,7 +48,7 @@ jobs:
           action: "upload"
           app_location: "./Lessons/MovieManager/MoviesManager.Client"
           api_location: ""
-          output_location: "/app"
+          output_location: "/app/MoviesManager.Client/browser"
           github_id_token: ${{ steps.idtoken.outputs.result }}
 
   close_pull_request_job:
