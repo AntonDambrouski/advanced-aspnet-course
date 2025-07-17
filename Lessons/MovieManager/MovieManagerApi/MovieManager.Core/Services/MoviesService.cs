@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MovieManager.Core.Configurations;
+using MovieManager.Core.Contexts;
 using MovieManager.Core.Entities;
 using MovieManager.Core.Exceptions;
 using MovieManager.Core.Interfaces;
@@ -13,6 +14,7 @@ namespace MovieManager.Core.Services;
 public class MoviesService(IMoviesRepository moviesRepository,
     IReviewsRepository reviewsRepository,
     IValidator<Movie> validator,
+    UserContext userContext,
     IOptions<MoviesServiceConfig> config,
     IFileUploadService fileUploadService) : IMoviesService
 {
@@ -24,6 +26,7 @@ public class MoviesService(IMoviesRepository moviesRepository,
 
     public async Task<List<Movie>> GetAllAsync(string searchTerm)
     {
+      
         return await moviesRepository.GetAllAsync(searchTerm);
     }
 
@@ -55,6 +58,8 @@ public class MoviesService(IMoviesRepository moviesRepository,
 
     public async Task<List<Movie>> GetAllMoviesAsync()
     {
+        Console.WriteLine($"User {userContext.UserId} requested movies...");
+
         return await moviesRepository.GetAllAsync();
     }
 

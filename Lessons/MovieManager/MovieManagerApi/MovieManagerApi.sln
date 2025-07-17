@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManager.Core", "MovieM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManager.Infrustructure", "MovieManager.Infrustructure\MovieManager.Infrustructure.csproj", "{1BEC5101-7D49-4D61-B02A-DB5C8996C49D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieManager.Client", "MovieManager.Client\MovieManager.Client.csproj", "{1A9ED581-75F2-40BF-80CD-DECE2B1A8313}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesManager.Shared", "MoviesManager.Shared\MoviesManager.Shared.csproj", "{0036C095-41BC-40B6-9B00-08411D00A8FE}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
@@ -33,10 +31,6 @@ Global
 		{1BEC5101-7D49-4D61-B02A-DB5C8996C49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BEC5101-7D49-4D61-B02A-DB5C8996C49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BEC5101-7D49-4D61-B02A-DB5C8996C49D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A9ED581-75F2-40BF-80CD-DECE2B1A8313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A9ED581-75F2-40BF-80CD-DECE2B1A8313}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A9ED581-75F2-40BF-80CD-DECE2B1A8313}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A9ED581-75F2-40BF-80CD-DECE2B1A8313}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0036C095-41BC-40B6-9B00-08411D00A8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0036C095-41BC-40B6-9B00-08411D00A8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0036C095-41BC-40B6-9B00-08411D00A8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU

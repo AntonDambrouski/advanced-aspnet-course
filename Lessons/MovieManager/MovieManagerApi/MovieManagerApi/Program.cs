@@ -7,6 +7,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MovieManager.Core.Configurations;
+using MovieManager.Core.Contexts;
 using MovieManager.Core.Entities;
 using MovieManager.Core.Interfaces;
 using MovieManager.Core.Interfaces.Repositories;
@@ -18,11 +19,19 @@ using MovieManagerApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var postersRootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "static", "posters");
+
+if (!Directory.Exists(postersRootPath))
+{
+    Directory.CreateDirectory(postersRootPath);
+}
+
 // Add services to the container.
 builder.Services.Configure<MoviesServiceConfig>(builder.Configuration.GetSection(nameof(MoviesServiceConfig)));
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection(nameof(JwtConfiguration)));
 builder.Services.AddScoped<IMoviesService, MoviesService>();
 builder.Services.AddScoped<IReviewsService, ReviewsService>();
+builder.Services.AddScoped<UserContext>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -54,7 +63,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddScoped<IValidator<Movie>, MovieValidator>();
 builder.Services.AddScoped<ITokensService, TokensService>();
 
-var currentPath = builder.Environment.ContentRootPath;
+var currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 builder.Services.AddScoped<IFileUploadService>(_ => new FileUploadService(currentPath));
 
 InfrustructureRegistrator.RegisterServices(builder.Services, builder.Configuration, builder.Environment.IsDevelopment());
@@ -96,12 +105,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<MovieContext>();
-        dbContext.Database.Migrate();
-    }
 }
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<MovieContext>();
+//    dbContext.Database.Migrate();
+//}
 
 // app.UseHttpsRedirection();
 
@@ -111,14 +121,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // app.UseMiddleware<CustomMiddleware>();
-
+app.UseSetUserContext();
 app.UseCustomExceptionHandler();
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(app.Environment.ContentRootPath, "static", "posters")),
-    RequestPath = "/posters"
+   FileProvider = new PhysicalFileProvider(
+       Path.Combine(postersRootPath)),
+   RequestPath = "/posters"
 });
 
 app.MapControllers();

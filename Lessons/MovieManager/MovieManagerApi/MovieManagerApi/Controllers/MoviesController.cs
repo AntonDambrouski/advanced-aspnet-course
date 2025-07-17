@@ -5,6 +5,7 @@ using MovieManager.Core.Entities;
 using MovieManager.Core.Interfaces;
 using MovieManagerApi.DTOs;
 using MovieManagerApi.Filters;
+using System.Security.Claims;
 
 namespace MovieManagerApi.Controllers;
 
@@ -77,7 +78,7 @@ public class MoviesController(IMoviesService moviesService,
     public async Task<ActionResult> Delete(int id)
     {
         var deleted = await moviesService.DeleteMovieAsync(id);
-       
+
         return Ok(deleted);
     }
 
@@ -110,7 +111,7 @@ public class MoviesController(IMoviesService moviesService,
     [HttpPost("{movieId:int}/upload-poster")]
     public async Task<IActionResult> UploadPosterAsync(int movieId, IFormFile file)
     {
-        if( file == null || file.Length == 0)
+        if (file == null || file.Length == 0)
         {
             return BadRequest("No file uploaded.");
         }
