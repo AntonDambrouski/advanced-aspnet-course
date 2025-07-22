@@ -1,0 +1,6 @@
+@TodoItemsCqrsApi_HostAddress = http://localhost:5277
+
+GET {{TodoItemsCqrsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
