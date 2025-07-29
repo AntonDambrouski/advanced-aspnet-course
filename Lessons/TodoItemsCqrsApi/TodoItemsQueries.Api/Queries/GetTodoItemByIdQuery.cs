@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using TodoItemsCqrsApi.Entities;
+using TodoItemsQueries.Api.Models;
 
 namespace TodoItemsCqrsApi.Queries
 {
-    public class GetTodoItemByIdQuery : IRequest<TodoItem?>
+    public class GetTodoItemByIdQuery : IRequest<TodoItemModel?>
     {
         public GetTodoItemByIdQuery(int id)
         {
